@@ -65,7 +65,8 @@ def scan(target: Target, intrusive: bool = False, allow_prod_active: bool = Fals
 
     # auth-required: no Authorization header
     st, _ = _send(target.url, init, ct)
-    if st is not None and st < 400:
+    auth_required = not (st is not None and st < 400)
+    if not auth_required:
         findings.append(Finding(NAME, "mcp-no-auth", "critical", "MCP endpoint answers without a token (HTTP %d)" % st,
                                 target.url, category=CATEGORY, app=target.app,
                                 fix="Require a bearer token on every MCP request."))
@@ -83,13 +84,18 @@ def scan(target: Target, intrusive: bool = False, allow_prod_active: bool = Fals
                                            "network (e.g. a VPN), not exposed on the LAN.",
                                     fix="Bind 127.0.0.1 only."))
 
-    # same-origin: browser-style request with a foreign Origin
-    st, _ = _send(target.url, init, dict(auth, Origin="https://evil.example", Host="%s:%d" % (host, port)))
-    if st is not None and st < 400:
-        findings.append(Finding(NAME, "mcp-origin", "medium", "MCP endpoint accepts a cross-site Origin",
-                                target.url, category=CATEGORY, app=target.app,
-                                detail="A browser write from another site was not rejected (DNS-rebinding / CSRF risk).",
-                                fix="Reject requests whose Origin is not the server's own."))
+    # DNS-rebinding / cross-origin: the real risk is a malicious web page reaching the loopback
+    # server from the victim's browser. That only works if the server answers WITHOUT the token
+    # (a browser cannot attach a secret bearer token cross-origin). So this is only a finding when a
+    # cross-origin request with NO token is accepted; a token-authenticated endpoint is not at risk.
+    if not auth_required:
+        st, _ = _send(target.url, init, dict(ct, Origin="https://evil.example", Host="%s:%d" % (host, port)))
+        if st is not None and st < 400:
+            findings.append(Finding(NAME, "mcp-origin", "high", "MCP endpoint accepts an unauthenticated cross-site request",
+                                    target.url, category=CATEGORY, app=target.app,
+                                    detail="A browser request from another site, with no token, was accepted "
+                                           "(DNS-rebinding risk for a loopback server).",
+                                    fix="Require a token and reject requests whose Origin is not the server's own."))
 
     if intrusive:
         # body-limit: one bounded oversized body
