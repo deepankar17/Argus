@@ -41,7 +41,21 @@
       "kind": "firebase-emulator",
       "env": "local",
       "authorized": false,
-      "options": { "path": "~/AndroidStudioProjects/phoniq" }
+      "options": {
+        "path": "~/AndroidStudioProjects/phoniq"
+      }
+    },
+    {
+      "name": "phoniq-apk",
+      "app": "phoniq",
+      "kind": "mobsf",
+      "env": "local",
+      "authorized": false,
+      "options": {
+        "artifacts": [
+          "~/AndroidStudioProjects/phoniq/android/app/build/outputs/apk/release/app-release.apk"
+        ]
+      }
     }
   ]
 }

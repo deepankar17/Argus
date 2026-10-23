@@ -50,3 +50,19 @@ Active DAST sends attack-shaped traffic (fuzzing, injection probes, rate testing
 production app that can corrupt data, trip abuse limits, or run up a bill. Prefer a staging or
 throwaway instance; if you must test prod, do it in a maintenance window, with the two opt-in flags,
 and expect the gate to make you say so explicitly per target.
+
+## Android deep analysis (MobSF)
+
+`kind: "mobsf"` runs [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) in a local
+Docker container against a **built** APK/AAB and maps its `appsec` summary (signing/debug cert,
+crypto misuse, exported components, hardcoded secrets, insecure storage/RNG, trackers, risky
+network destinations, permissions) into findings. Point the target at the artifact:
+
+```json
+{ "name": "phoniq-apk", "app": "phoniq", "kind": "mobsf", "env": "local", "authorized": true,
+  "options": { "artifacts": ["~/path/to/app-release.apk"] } }
+```
+
+Needs Docker running (Docker Desktop, or Colima: `brew install colima docker && colima start`).
+MobSF analyses APKs far more completely than AABs — prefer a (release) APK. Analysis is static and
+local; the container never uploads the app.

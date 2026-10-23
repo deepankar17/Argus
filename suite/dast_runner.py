@@ -25,6 +25,7 @@ SCANNERS = {
     "http-api": "suite.dast.http_api",
     "mcp": "suite.dast.mcp_dynamic",
     "firebase-emulator": "suite.dast.firebase_rules_dynamic",
+    "mobsf": "suite.dast.mobsf",
 }
 
 
