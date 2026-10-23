@@ -106,4 +106,12 @@ def scan(target: Target, intrusive: bool, allow_prod_active: bool = False):
     if notes:
         findings.append(Finding(NAME, "tool-missing", "info", "; ".join(notes), target.url, category=CATEGORY,
                                 app=target.app))
-    return findings
+    # nuclei fires some templates once per DNS record / matched line (RDAP, missing-headers, TLS
+    # version), so collapse identical (rule + title) hits into one.
+    seen, unique = set(), []
+    for f in findings:
+        key = (f.rule, f.title)
+        if key not in seen:
+            seen.add(key)
+            unique.append(f)
+    return unique
