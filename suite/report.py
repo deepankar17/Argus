@@ -47,7 +47,7 @@ def write_sarif(apps, out):
             if f.get("suppressed"):
                 res["suppressions"] = [{"kind": "inSource", "justification": f["suppressed"]}]
             results.append(res)
-        runs.append({"tool": {"driver": {"name": "SentinIQ", "informationUri":
+        runs.append({"tool": {"driver": {"name": "Argus", "informationUri":
                      "https://github.com/deepankar17", "rules": list(rules.values())}},
                      "results": results,
                      "properties": {"app": app["app"]}})
@@ -75,7 +75,7 @@ def _fmt_finding(f):
 def write_markdown(run, out):
     L = []
     L.append("# Security review\n")
-    L.append("_%s · SentinIQ_\n" % run["generated"])
+    L.append("_%s · Argus_\n" % run["generated"])
     total = _counts([_dict(f) for app in run["apps"] for f in app["findings"]])
     L.append("## Summary\n")
     L.append("| App | " + " | ".join("%s %s" % (BADGE[s], s.title()) for s in SEVERITIES) + " |")

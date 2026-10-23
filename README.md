@@ -1,4 +1,4 @@
-# SentinIQ
+# Argus
 
 A defensive, end-to-end security test suite for my own apps — **PhonIQ**, **CrewChat** and
 **MinutIQ**. One command scans every app, applies the right checks for each stack, and writes a
@@ -37,10 +37,10 @@ is missing are reported as **skipped**, not failed, so a partial toolbox still g
 ## Run
 
 ```bash
-./sentiniq                 # every app, every applicable scanner
-./sentiniq --app phoniq -v # one app, verbose
-./sentiniq --scanner sast  # one scanner across all apps
-./sentiniq --fail-on critical   # exit non-zero only on critical (default: high) — for CI gates
+./argus                 # every app, every applicable scanner
+./argus --app phoniq -v # one app, verbose
+./argus --scanner sast  # one scanner across all apps
+./argus --fail-on critical   # exit non-zero only on critical (default: high) — for CI gates
 ```
 
 Reports land in `reports/`:

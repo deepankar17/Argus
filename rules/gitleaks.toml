@@ -1,5 +1,5 @@
 # gitleaks: the default rules, minus build output and vendored code.
-title = "SentinIQ"
+title = "Argus"
 
 [extend]
 useDefault = true

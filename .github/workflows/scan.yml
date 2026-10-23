@@ -1,10 +1,10 @@
-name: SentinIQ
+name: Argus
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 6 * * 1"   # Monday 06:00 UTC
 
-# This workflow scans THIS repo. To scan the three apps, run ./sentiniq locally where they are
+# This workflow scans THIS repo. To scan the three apps, run ./argus locally where they are
 # checked out, or add their checkouts here and point config/apps.json at them.
 jobs:
   self-test:

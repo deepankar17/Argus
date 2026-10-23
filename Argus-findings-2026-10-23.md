@@ -1,0 +1,705 @@
+# Security review
+
+_2026-10-23T13:52:42+05:30 · Argus_
+
+## Summary
+
+| App | 🟥 Critical | 🟧 High | 🟨 Medium | 🟦 Low | ⬜ Info |
+|---|---|---|---|---|---|
+| **phoniq** | 1 | 26 | 34 | 19 | 3 |
+| **crewchat** | 0 | 1 | 45 | 23 | 0 |
+| **minutiq** | 0 | 0 | 5 | 0 | 4 |
+| **All** | 1 | 27 | 84 | 42 | 7 |
+
+
+## phoniq
+
+`deepankar17/PhonIQ`
+
+
+### Dependencies (SCA)
+
+- 🟥 **CRITICAL** — tar 6.2.1: node-tar: Decompression/parse DoS via unlimited input
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-23hp-3jrh-7fpw (CVE-2026-59873).
+  - _Fix:_ Upgrade to 7.5.19 or later.
+  - https://osv.dev/vulnerability/GHSA-23hp-3jrh-7fpw
+- 🟧 **HIGH** — @grpc/grpc-js 1.9.16: @grpc/grpc-js: In certain configurations, getAuthContext can return unauthorized certificates as though they were authorized
+  - `firestore-tests/package-lock.json`
+  - npm package @grpc/grpc-js 1.9.16 is affected by GHSA-m9gg-hp2v-232j (CVE-2026-101916).
+  - _Fix:_ Upgrade to 1.13.6 or later.
+  - https://osv.dev/vulnerability/GHSA-m9gg-hp2v-232j
+- 🟧 **HIGH** — basic-ftp 5.3.1: basic-ftp: Quadratic-time CPU denial of service in Client.list() Unix directory-listing parser (RE_LINE backtracking)
+  - `firestore-tests/package-lock.json`
+  - npm package basic-ftp 5.3.1 is affected by GHSA-c475-qrg2-pj4r (CVE-2026-102990).
+  - _Fix:_ Upgrade to 6.2.1 or later.
+  - https://osv.dev/vulnerability/GHSA-c475-qrg2-pj4r
+- 🟧 **HIGH** — braces 3.0.3: braces vulnerable to stack-exhaustion denial of service through deeply nested patterns
+  - `firestore-tests/package-lock.json`
+  - npm package braces 3.0.3 is affected by GHSA-vfj7-8cjw-p6xm (CVE-2026-93687).
+  - _Fix:_ No fixed version published yet; check the advisory.
+  - https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm
+- 🟧 **HIGH** — tar 6.2.1: node-tar Vulnerable to Arbitrary File Creation/Overwrite via Hardlink Path Traversal
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-34x7-hfp2-rc4v (CVE-2026-24842).
+  - _Fix:_ Upgrade to 7.5.7 or later.
+  - https://osv.dev/vulnerability/GHSA-34x7-hfp2-rc4v
+- 🟧 **HIGH** — tar 6.2.1: Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-83g3-92jg-28cx (CVE-2026-26960).
+  - _Fix:_ Upgrade to 7.5.8 or later.
+  - https://osv.dev/vulnerability/GHSA-83g3-92jg-28cx
+- 🟧 **HIGH** — tar 6.2.1: node-tar is Vulnerable to Arbitrary File Overwrite and Symlink Poisoning via Insufficient Path Sanitization
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-8qq5-rm4j-mr97 (CVE-2026-23745).
+  - _Fix:_ Upgrade to 7.5.3 or later.
+  - https://osv.dev/vulnerability/GHSA-8qq5-rm4j-mr97
+- 🟧 **HIGH** — tar 6.2.1: node-tar: Negative tar entry size causes infinite loop in archive replace
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-8x88-c5mf-7j5w (CVE-2026-59874).
+  - _Fix:_ Upgrade to 7.5.18 or later.
+  - https://osv.dev/vulnerability/GHSA-8x88-c5mf-7j5w
+- 🟧 **HIGH** — tar 6.2.1: node-tar Symlink Path Traversal via Drive-Relative Linkpath
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-9ppj-qmqm-q256 (CVE-2026-31802).
+  - _Fix:_ Upgrade to 7.5.11 or later.
+  - https://osv.dev/vulnerability/GHSA-9ppj-qmqm-q256
+- 🟧 **HIGH** — tar 6.2.1: tar has Hardlink Path Traversal via Drive-Relative Linkpath
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-qffp-2rhf-9h96 (CVE-2026-29786).
+  - _Fix:_ Upgrade to 7.5.10 or later.
+  - https://osv.dev/vulnerability/GHSA-qffp-2rhf-9h96
+- 🟧 **HIGH** — tar 6.2.1: node-tar: Uncontrolled recursion in mapHas/filesFilter allows uncatchable stack-overflow DoS via crafted long-path tar with member selection
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-r292-9mhp-454m (CVE-2026-73566).
+  - _Fix:_ Upgrade to 7.5.21 or later.
+  - https://osv.dev/vulnerability/GHSA-r292-9mhp-454m
+- 🟧 **HIGH** — tar 6.2.1: Race Condition in node-tar Path Reservations via Unicode Ligature Collisions on macOS APFS
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-r6q2-hw4h-h46w (CVE-2026-23950).
+  - _Fix:_ Upgrade to 7.5.4 or later.
+  - https://osv.dev/vulnerability/GHSA-r6q2-hw4h-h46w
+- 🟧 **HIGH** — uuid 8.3.2: uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided
+  - `firestore-tests/package-lock.json`
+  - npm package uuid 8.3.2 is affected by GHSA-w5hq-g745-h8pq (CVE-2026-41907, CVE-2026-41988).
+  - _Fix:_ Upgrade to 11.1.1 or later.
+  - https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq
+- 🟧 **HIGH** — uuid 9.0.1: uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided
+  - `firestore-tests/package-lock.json`
+  - npm package uuid 9.0.1 is affected by GHSA-w5hq-g745-h8pq (CVE-2026-41907, CVE-2026-41988).
+  - _Fix:_ Upgrade to 11.1.1 or later.
+  - https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq
+- 🟨 **MEDIUM** — @opentelemetry/core 1.30.1: OpenTelemetry Core: Unbounded memory allocation in W3C Baggage propagation
+  - `firestore-tests/package-lock.json`
+  - npm package @opentelemetry/core 1.30.1 is affected by GHSA-8988-4f7v-96qf (CVE-2026-54285).
+  - _Fix:_ Upgrade to 2.8.0 or later.
+  - https://osv.dev/vulnerability/GHSA-8988-4f7v-96qf
+- 🟨 **MEDIUM** — csv-parse 5.6.0: node-csv: Prototype replacement still reachable via columns path
+  - `firestore-tests/package-lock.json`
+  - npm package csv-parse 5.6.0 is affected by GHSA-8cw4-87c7-c6xx (CVE-2026-85063).
+  - _Fix:_ Upgrade to 7.0.2 or later.
+  - https://osv.dev/vulnerability/GHSA-8cw4-87c7-c6xx
+- 🟨 **MEDIUM** — ip-address 10.7.3: ip-address: Address6 matches a zone identifier in quadratic time ahead of its length limit, allowing a single long string to stall the proce
+  - `firestore-tests/package-lock.json`
+  - npm package ip-address 10.7.3 is affected by GHSA-rxp7-6hxx-x8q5 (CVE-2026-111997).
+  - _Fix:_ Upgrade to 10.7.4 or later.
+  - https://osv.dev/vulnerability/GHSA-rxp7-6hxx-x8q5
+- 🟨 **MEDIUM** — re2 1.24.1: re2: Global `String.prototype.match` with an empty-matchable pattern never advances → infinite loop with unbounded native memory growth (DoS
+  - `firestore-tests/package-lock.json`
+  - npm package re2 1.24.1 is affected by GHSA-6hxr-mr5r-9836 (CVE-2026-68499).
+  - _Fix:_ Upgrade to 1.25.2 or later.
+  - https://osv.dev/vulnerability/GHSA-6hxr-mr5r-9836
+- 🟨 **MEDIUM** — re2 1.24.1: node-re2: String.prototype.replace(re2, template) aborts the Node process (uncatchable ToLocalChecked on empty MaybeLocal) when the result e
+  - `firestore-tests/package-lock.json`
+  - npm package re2 1.24.1 is affected by GHSA-8hcv-x26h-mcgp (CVE-2026-71430).
+  - _Fix:_ Upgrade to 1.25.1 or later.
+  - https://osv.dev/vulnerability/GHSA-8hcv-x26h-mcgp
+- 🟨 **MEDIUM** — re2 1.24.1: re2: Out-of-bounds heap read in `exec`/`test`/`match` via attacker-influenced `lastIndex` on a non-ASCII subject → uncatchable process crash
+  - `firestore-tests/package-lock.json`
+  - npm package re2 1.24.1 is affected by GHSA-ff84-5f28-78qj (CVE-2026-67550).
+  - _Fix:_ Upgrade to 1.25.2 or later.
+  - https://osv.dev/vulnerability/GHSA-ff84-5f28-78qj
+- 🟨 **MEDIUM** — re2 1.24.1: node-re2: Out-of-bounds heap read in `replace`/`split` via a `Buffer` ending in a truncated multi-byte UTF-8 character → adjacent heap memor
+  - `firestore-tests/package-lock.json`
+  - npm package re2 1.24.1 is affected by GHSA-j4r3-hg7j-8chg (CVE-2026-71498).
+  - _Fix:_ Upgrade to 1.26.1 or later.
+  - https://osv.dev/vulnerability/GHSA-j4r3-hg7j-8chg
+- 🟨 **MEDIUM** — stream-json 1.9.1: stream-json: pick/ignore/filter/replace filters are O(depth²) on nested input — small crafted JSON blocks the event loop for seconds→minutes
+  - `firestore-tests/package-lock.json`
+  - npm package stream-json 1.9.1 is affected by GHSA-528h-pc64-c93x (CVE-2026-71429).
+  - _Fix:_ Upgrade to 3.5.0 or later.
+  - https://osv.dev/vulnerability/GHSA-528h-pc64-c93x
+- 🟨 **MEDIUM** — stream-json 1.9.1: stream-json: JSONC parser and verifier re-scan the whole accumulated comment on every input chunk
+  - `firestore-tests/package-lock.json`
+  - npm package stream-json 1.9.1 is affected by GHSA-hqr4-qq8f-hg3x (CVE-2026-104182).
+  - _Fix:_ Upgrade to 3.6.0 or later.
+  - https://osv.dev/vulnerability/GHSA-hqr4-qq8f-hg3x
+- 🟨 **MEDIUM** — stream-json 1.9.1: stream-json has a prototype pollution issue: Assembler writes this.current[this.key] on plain objects
+  - `firestore-tests/package-lock.json`
+  - npm package stream-json 1.9.1 is affected by GHSA-mjw6-4jj6-33hc (CVE-2026-104183).
+  - _Fix:_ Upgrade to 3.6.0 or later.
+  - https://osv.dev/vulnerability/GHSA-mjw6-4jj6-33hc
+- 🟨 **MEDIUM** — tar 6.2.1: node-tar: Uncaught Exception DoS via NUL byte in PAX path/linkpath records
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-gvwx-54wh-qm9j (CVE-2026-59875).
+  - _Fix:_ Upgrade to 7.5.17 or later.
+  - https://osv.dev/vulnerability/GHSA-gvwx-54wh-qm9j
+- 🟨 **MEDIUM** — tar 6.2.1: node-tar applies PAX size override to intermediary GNU long-name/long-link headers, causing tar parser interpretation differential (file smu
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-vmf3-w455-68vh (CVE-2026-53655).
+  - _Fix:_ Upgrade to 7.5.16 or later.
+  - https://osv.dev/vulnerability/GHSA-vmf3-w455-68vh
+- 🟨 **MEDIUM** — tar 6.2.1: node-tar: Process crash via PAX numeric path type confusion
+  - `firestore-tests/package-lock.json`
+  - npm package tar 6.2.1 is affected by GHSA-w8wr-v893-vjvp (CVE-2026-59871).
+  - _Fix:_ Upgrade to 7.5.18 or later.
+  - https://osv.dev/vulnerability/GHSA-w8wr-v893-vjvp
+- 🟦 **LOW** — @grpc/grpc-js 1.9.16: @grpc/grpc-js: The server transmits some error messages thrown by method handlers to the client in status messages
+  - `firestore-tests/package-lock.json`
+  - npm package @grpc/grpc-js 1.9.16 is affected by GHSA-f596-whhp-79r4 (CVE-2026-101915).
+  - _Fix:_ Upgrade to 1.13.6 or later.
+  - https://osv.dev/vulnerability/GHSA-f596-whhp-79r4
+
+### Code (SAST)
+
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `android/scripts/dev/seed_from_phone.py:15`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `android/scripts/dev/tap.py:10`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to pa
+  - `android/scripts/licences/build_licence_assets.py:65`
+  - The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to parse untrusted input. Instead  the Python documentation recommends using `defusedxml`. CWE-611: Improper Restriction of XML External Entity Reference
+  - _Fix:_ defusedxml.etree.ElementTree.parse(p)
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟧 **HIGH** — The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to pa
+  - `android/scripts/licences/build_licence_assets.py:85`
+  - The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to parse untrusted input. Instead  the Python documentation recommends using `defusedxml`. CWE-611: Improper Restriction of XML External Entity Reference
+  - _Fix:_ defusedxml.etree.ElementTree.parse(hit)
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟧 **HIGH** — The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to pa
+  - `scripts/i18n/strings_io.py:69`
+  - The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to parse untrusted input. Instead  the Python documentation recommends using `defusedxml`. CWE-611: Improper Restriction of XML External Entity Reference
+  - _Fix:_ defusedxml.etree.ElementTree.parse(os.path.join(path, f))
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:98`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:104`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:110`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:112`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:139`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:148`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:197`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟧 **HIGH** — Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+  - `site/tools/record_emulator.py:282`
+  - Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+  - https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess https://docs.python.org/3/library/subprocess.html
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/android.yml:16`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/android.yml:19`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/android.yml:25`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/android.yml:32`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential 
+  - `android/scripts/dev/lp.py:4`
+  - The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and "XML bombs" can cause denial of service. CWE-611: Improper Restriction of XML External Entity Reference
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟨 **MEDIUM** — The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential 
+  - `android/scripts/dev/tap.py:6`
+  - The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and "XML bombs" can cause denial of service. CWE-611: Improper Restriction of XML External Entity Reference
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟨 **MEDIUM** — The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential 
+  - `android/scripts/licences/build_licence_assets.py:23`
+  - The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and "XML bombs" can cause denial of service. CWE-611: Improper Restriction of XML External Entity Reference
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟨 **MEDIUM** — Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+  - `android/scripts/refresh_sms_corpus.py:293`
+  - Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead. CWE-327: Use of a Broken or Risky Cryptographic Algorithm
+  - _Fix:_ hashlib.sha256(f"{r[2]}\x1f{body}\x1f{r[1]}".encode("utf-8"))
+  - https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability
+- 🟨 **MEDIUM** — Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+  - `android/scripts/refresh_sms_corpus.py:380`
+  - Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead. CWE-327: Use of a Broken or Risky Cryptographic Algorithm
+  - _Fix:_ hashlib.sha256(f"{sender}\x1f{clean}\x1f{ts}".encode("utf-8"))
+  - https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `scripts/agent-hub/hub.py:701`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `scripts/agent-hub/hub.py:702`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential 
+  - `scripts/i18n/strings_io.py:16`
+  - The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and "XML bombs" can cause denial of service. CWE-611: Improper Restriction of XML External Entity Reference
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟨 **MEDIUM** — The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential 
+  - `site/tools/record_emulator.py:26`
+  - The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and "XML bombs" can cause denial of service. CWE-611: Improper Restriction of XML External Entity Reference
+  - https://docs.python.org/3/library/xml.html https://github.com/tiran/defusedxml
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `scripts/agent-hub/hub.py:757`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `scripts/data/india_mobile_series.py:117`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a template variable used in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent cross-site scripting (XSS) attacks when used directly in JavaScri
+  - `site/templates/base.html:17`
+  - Detected a template variable used in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent cross-site scripting (XSS) attacks when used directly in JavaScript. If you need this data on the rendered page, consider placing it in the HTML portion (outside of a script tag). Alternatively, use a JavaScript-specific encoder, such as the one available in OWASP 
+  - https://adamj.eu/tech/2020/02/18/safely-including-data-for-javascript-in-a-django-template/?utm_campaign=Django%2BNewsletter&utm_medium=rss&utm_source=Django_Newsletter_12A https://www.veracode.com/blog/secure-development/nodejs-template-engines-why-default-encoders-are-not-enough
+- 🟦 **LOW** — Detected a template variable used in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent cross-site scripting (XSS) attacks when used directly in JavaScri
+  - `site/templates/base.html:21`
+  - Detected a template variable used in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent cross-site scripting (XSS) attacks when used directly in JavaScript. If you need this data on the rendered page, consider placing it in the HTML portion (outside of a script tag). Alternatively, use a JavaScript-specific encoder, such as the one available in OWASP 
+  - https://adamj.eu/tech/2020/02/18/safely-including-data-for-javascript-in-a-django-template/?utm_campaign=Django%2BNewsletter&utm_medium=rss&utm_source=Django_Newsletter_12A https://www.veracode.com/blog/secure-development/nodejs-template-engines-why-default-encoders-are-not-enough
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:62`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:63`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/download.html:10`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/home.html:10`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/home.html:199`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/home.html:203`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/testers.html:14`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/testers.html:14`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/testers.html:20`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+
+### Android
+
+- 🟨 **MEDIUM** — Exported service com.phoniq.app.car.PhonIQCarAppService has no permission
+  - `android/app/src/carApp/AndroidManifest.xml:15`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟨 **MEDIUM** — Exported service .wear.WearActionsService has no permission
+  - `android/app/src/main/AndroidManifest.xml:2139`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟨 **MEDIUM** — Exported receiver .receiver.ExactAlarmPermissionReceiver has no permission
+  - `android/app/src/main/AndroidManifest.xml:152`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟨 **MEDIUM** — Exported receiver .receiver.BootCompletedReceiver has no permission
+  - `android/app/src/main/AndroidManifest.xml:160`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟨 **MEDIUM** — Exported receiver .intelligence.ModelDownloadReceiver has no permission
+  - `android/app/src/main/AndroidManifest.xml:291`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟨 **MEDIUM** — Exported receiver .telecom.MissedCallNotificationReceiver has no permission
+  - `android/app/src/main/AndroidManifest.xml:303`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟨 **MEDIUM** — Exported service .WearCopyListener has no permission
+  - `android/wear/src/main/AndroidManifest.xml:48`
+  - Any app can start or send to it; check it validates who calls and what it gets.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- 🟦 **LOW** — Exported activity .MainActivity has no permission
+  - `android/app/src/main/AndroidManifest.xml:425`
+  - Any app can open it with any extras; check it handles untrusted intents.
+  - _Fix:_ Set exported="false" if only this app uses it, or protect it with a signature permission.
+- ⬜ **INFO** — Sensitive permissions: ANSWER_PHONE_CALLS, CALL_PHONE, READ_CALL_LOG, READ_CONTACTS, READ_PHONE_NUMBERS, READ_PHONE_STATE, READ_SMS, RECEIVE_SMS, RECORD_AUDIO, SEND_SMS, SYSTEM_ALERT_WINDOW, USE_FULL_SCREEN_INTENT, WRITE_CALL_LOG, WRITE_CONTACTS
+  - `android/app/src/main/AndroidManifest.xml`
+  - Not a bug. Each one needs a Play declaration and should be used only for the feature that asks for it.
+  - _Fix:_ Drop any the app no longer needs.
+- ⬜ **INFO** — Sensitive permissions: USE_FULL_SCREEN_INTENT
+  - `android/wear/src/main/AndroidManifest.xml`
+  - Not a bug. Each one needs a Play declaration and should be used only for the feature that asks for it.
+  - _Fix:_ Drop any the app no longer needs.
+
+### Firebase rules
+
+- 🟨 **MEDIUM** — Any signed-in account can read every document under /
+  - `firestore.rules:28`
+  - read includes list, so a client can enumerate the whole collection.
+  - _Fix:_ If the data is not meant to be public to all users, scope it to the owner; allow get but not list when only lookups by id are needed.
+
+### Firebase config
+
+- 🟦 **LOW** — Callable verifyChatPhone does not enforce App Check
+  - `functions/src/index.ts:164`
+  - Scripts can call it directly with a valid user token, bypassing the app.
+  - _Fix:_ Set enforceAppCheck: true once App Check is set up (debug tokens for debug builds).
+- 🟦 **LOW** — Callable setChatFindable does not enforce App Check
+  - `functions/src/index.ts:170`
+  - Scripts can call it directly with a valid user token, bypassing the app.
+  - _Fix:_ Set enforceAppCheck: true once App Check is set up (debug tokens for debug builds).
+- 🟦 **LOW** — Callable lookupNumber does not enforce App Check
+  - `functions/src/index.ts:176`
+  - Scripts can call it directly with a valid user token, bypassing the app.
+  - _Fix:_ Set enforceAppCheck: true once App Check is set up (debug tokens for debug builds).
+- 🟦 **LOW** — Callable forgetChatNumber does not enforce App Check
+  - `functions/src/index.ts:188`
+  - Scripts can call it directly with a valid user token, bypassing the app.
+  - _Fix:_ Set enforceAppCheck: true once App Check is set up (debug tokens for debug builds).
+- ⬜ **INFO** — HTTP function webError is public with no auth check
+  - `functions/src/index.ts:71`
+  - Fine for a deliberately public endpoint; make sure it limits input size, rate and origins, and has maxInstances set so abuse cannot run up a bill.
+  - _Fix:_ Add maxInstances and input limits; check an ID token if it is not meant to be public.
+
+## crewchat
+
+`deepankar17/crewchat-dev`
+
+
+### Code (SAST)
+
+- 🟧 **HIGH** — A `run:` step pipes the output of `curl` or `wget` directly into a shell interpreter. This is the "curl | bash" install pattern — if the remote server is compromised or the URL is hijacked, an attacke
+  - `.github/workflows/new-user.yml:129`
+  - A `run:` step pipes the output of `curl` or `wget` directly into a shell interpreter. This is the "curl | bash" install pattern — if the remote server is compromised or the URL is hijacked, an attacker can execute arbitrary code in your CI runner. Consider downloading the file first, verifying its checksum or signature, and then executing it. CWE-78: Improper Neutralization of Special Elements use
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions https://www.idontplaydarts.com/2016/04/detecting-curl-pipe-bash-server-side/
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:28`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:31`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:36`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:50`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:69`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:73`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/release-assets.yml:86`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/test.yml:18`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/test.yml:19`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/test.yml:36`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `crewchat.py:44`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `crewchat.py:1225`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `crewchat.py:1226`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:6803`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `crewchat.py:6922`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `crewchat.py:6923`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:6950`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `crewchat.py:7490`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:8071`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:9284`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:9604`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:9988`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat.py:10268`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyo
+  - `crewchat_cloud.py:215`
+  - These permissions `0o700` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else. CWE-276: Incorrect Default Permissions
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat_cloud.py:1409`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `crewchat_map.py:26`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — SQL Injection is a critical vulnerability that can lead to data or system compromise. By
+  - `crewchat_map.py:612`
+  - SQL Injection is a critical vulnerability that can lead to data or system compromise. By dynamically generating SQL query strings, user input may be able to influence the logic of the SQL statement. This could lead to an adversary accessing information they should not have access to, or in some circumstances, being able to execute OS functionality or code.  Replace all dynamically generated SQL qu
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat_peers.py:488`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `crewchat_peers.py:1062`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `site/media.py:6`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/demo_recordings.py:17`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/demo_recordings.py:583`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/demo_recordings.py:586`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/demo_recordings.py:600`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/demo_recordings.py:611`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/diagrams/diagrams.py:18`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/docs_screenshots.py:17`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — The application was found passing in a non-literal value to the `urllib` methods which issue
+  - `tools/docs_screenshots.py:132`
+  - The application was found passing in a non-literal value to the `urllib` methods which issue requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control the URL value to read arbitrary files on the file system.  To remediate this issue either hardcode the URLs being used in urllib or use the `requests` module instead.  Example using the `requests` module to issue
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/docs_screenshots.py:425`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/docs_screenshots.py:438`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Python possesses many mechanisms to invoke an external executable. However,
+  - `tools/docs_screenshots.py:454`
+  - Python possesses many mechanisms to invoke an external executable. However, doing so may present a security issue if appropriate care is not taken to sanitize any user provided or variable input. This plugin test is part of a family of tests built to check for process spawning and warn appropriately. Specifically, this test looks for the spawning of a subprocess without the use of a command shell.
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/shorts/make_shorts.py:26`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/tutorial/console_clips.py:19`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/tutorial/make_video.py:20`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟨 **MEDIUM** — Consider possible security implications associated with subprocess module.
+  - `tools/tutorial/vids_scenes.py:19`
+  - Consider possible security implications associated with subprocess module.  C, W, E, -, 7, 8
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:6803`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:6950`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:8071`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:9284`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:9604`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:9988`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat.py:10268`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat_cloud.py:1409`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected possible formatted SQL query. Use parameterized queries instead.
+  - `crewchat_map.py:612`
+  - Detected possible formatted SQL query. Use parameterized queries instead. CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+  - https://stackoverflow.com/questions/775296/mysql-parameterized-queries
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat_peers.py:488`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `crewchat_peers.py:1062`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/404.html:7`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:31`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:32`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:43`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:44`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:45`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/base.html:46`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/home.html:10`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/home.html:215`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If usi
+  - `site/templates/home.html:216`
+  - Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variabl
+  - https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url
+- 🟦 **LOW** — Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib call
+  - `tools/docs_screenshots.py:132`
+  - Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead. CWE-939: Improper Authorization in Handler for Custom URL Scheme
+  - https://cwe.mitre.org/data/definitions/939.html
+
+### Infrastructure as code
+
+- 🟦 **LOW** — No HEALTHCHECK defined (glama/Dockerfile)
+  - `glama/Dockerfile`
+  - Add HEALTHCHECK instruction in your Dockerfile
+  - _Fix:_ Add HEALTHCHECK instruction in Dockerfile
+  - https://blog.aquasec.com/docker-security-best-practices https://avd.aquasec.com/misconfig/ds-0026
+
+## minutiq
+
+`deepankar17/MinutIQ`
+
+
+### Code (SAST)
+
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/ci.yml:15`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/ci.yml:16`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/ci.yml:32`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/ci.yml:33`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- 🟨 **MEDIUM** — GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-gi
+  - `.github/workflows/ci.yml:37`
+  - GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`. CWE-1357: Reliance on Insufficiently Trust
+  - https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions
+- ⬜ **INFO** — Semgrep pack(s) unavailable, skipped: p/dart
+  - The registry returned 404 for these packs; the rest of the scan ran.
+
+### Android
+
+- ⬜ **INFO** — Sensitive permissions: RECORD_AUDIO
+  - `android/app/src/main/AndroidManifest.xml`
+  - Not a bug. Each one needs a Play declaration and should be used only for the feature that asks for it.
+  - _Fix:_ Drop any the app no longer needs.
+
+### Secrets
+
+- ⬜ **INFO** — Firebase client config key in lib/firebase_options.dart (expected, not a leak)
+  - `lib/firebase_options.dart:52`
+  - This key is a project identifier that ships in every client. Firebase protects data with Security Rules and App Check, not by keeping it secret.
+  - _Fix:_ No rotation needed. Do restrict the key in the Google Cloud console (API and app restrictions) and make sure Security Rules and App Check are enforced.
+- ⬜ **INFO** — Firebase client config key in lib/firebase_options.dart (expected, not a leak)
+  - `lib/firebase_options.dart:62`
+  - This key is a project identifier that ships in every client. Firebase protects data with Security Rules and App Check, not by keeping it secret.
+  - _Fix:_ No rotation needed. Do restrict the key in the Google Cloud console (API and app restrictions) and make sure Security Rules and App Check are enforced.
