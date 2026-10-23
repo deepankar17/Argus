@@ -1,5 +1,6 @@
 """Secrets with gitleaks: the working tree and every commit in the git history. Secrets are
 redacted, so reports never carry them."""
+import re
 import tempfile
 from pathlib import Path
 
@@ -7,6 +8,15 @@ from ..core import Finding, ROOT_RULES, load_json, need, run, tracked_set
 
 NAME = "secrets"
 CATEGORY = "Secrets"
+
+# Firebase client config. The "API key" in these files is a project identifier that is *meant* to
+# ship in the client; Firebase secures data with Security Rules and App Check, not by keeping this
+# key secret. Flagging it as a leaked credential is the classic false positive, so it is reported as
+# info with the correct guidance instead of high.
+FIREBASE_CONFIG = re.compile(
+    r"(^|/)(firebase_options\.dart|google-services\.json|GoogleService-Info\.plist)$|"
+    r"(^|/)firebase[-_]?config\.(js|ts|json)$", re.I)
+FIREBASE_KEY_RULES = {"gcp-api-key", "google-api-key", "firebase", "generic-api-key"}
 
 
 def scan(app):
@@ -27,17 +37,31 @@ def scan(app):
                 path = leak.get("File", "")
                 if path.startswith(str(app.path)):
                     path = path[len(str(app.path)):].lstrip("/")
+                rule = leak.get("RuleID", "secret")
+                firebase = FIREBASE_CONFIG.search(path) and rule in FIREBASE_KEY_RULES
                 if mode == "dir":
                     # A secret on an untracked/ignored path is vendored or local-only tooling, not
                     # part of the repo. The repo-hygiene scanner handles sensitive files separately.
                     if tracked is not None and path not in tracked:
                         continue
-                    title = "%s in %s" % (leak.get("Description") or leak.get("RuleID"), path)
+                    if firebase:
+                        findings.append(Finding(
+                            NAME, "firebase-client-key", "info",
+                            "Firebase client config key in %s (expected, not a leak)" % path, path,
+                            leak.get("StartLine", 0), category=CATEGORY,
+                            detail="This key is a project identifier that ships in every client. Firebase protects "
+                                   "data with Security Rules and App Check, not by keeping it secret.",
+                            fix="No rotation needed. Do restrict the key in the Google Cloud console (API and app "
+                                "restrictions) and make sure Security Rules and App Check are enforced."))
+                        continue
+                    title = "%s in %s" % (leak.get("Description") or rule, path)
                     findings.append(Finding(
-                        NAME, leak.get("RuleID", "secret"), "high", title, path,
+                        NAME, rule, "high", title, path,
                         leak.get("StartLine", 0), category=CATEGORY,
                         detail="A secret in a file git tracks. Anyone with the repo has it.",
                         fix="Move it to a secret store or a git-ignored config file, and rotate it if it was ever pushed."))
+                elif firebase:
+                    continue  # already reported from the working tree; history adds nothing for a public key
                 else:
                     commit = (leak.get("Commit") or "")[:10]
                     findings.append(Finding(

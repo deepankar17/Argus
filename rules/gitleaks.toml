@@ -23,3 +23,11 @@ paths = [
   '''(^|/)(tests?|e2e|fixtures?|__tests__|testdata|mocks?)/''',
   '''(\.|_|-)(test|spec)\.(ts|js|py|kt|dart|java)$''',
 ]
+
+[[allowlists]]
+description = "public client-side analytics tokens, documented as public (not credentials)"
+regexTarget = "match"
+regexes = [
+  '''(?i)cf[-_]?beacon[-_]?token''',
+  '''(?i)measurement[-_]?id''',
+]
