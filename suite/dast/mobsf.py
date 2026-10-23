@@ -95,20 +95,40 @@ def _scan_one(artifact, app, key):
         report = json.loads(rep.read_text())
     findings = []
     appsec = report.get("appsec", {})
-    seen = set()
+    is_debug = report.get("build_type", "") == "debug" or "debug" in name.lower()
+    # Collapse the many near-identical "exported component" warnings (launcher-skin aliases, library
+    # components) that differ only by the component name, so the real findings are not buried.
+    groups = {}
     for bucket in ("high", "warning", "hotspot"):
         for item in appsec.get(bucket, []) or []:
             if not isinstance(item, dict):
                 continue
             title = str(item.get("title", "")).split("\n")[0].strip()
-            key_t = (bucket, title[:80])
-            if key_t in seen:
+            sev = SEV[bucket]
+            low = title.lower()
+            # Debug-build artifacts: the release AAB sets these correctly (confirmed by the static scanner).
+            if is_debug and ("debug" in low and ("certificate" in low or "debuggable" in low or "debug configuration" in low)):
+                sev = "info"
+                title = "[debug build] " + title
+            comp = re.sub(r"\([^)]*\)", "()", title)  # normalize the component name out
+            m = re.match(r"(Activity-Alias|Activity|Service|Broadcast Receiver) \(\) is not Protected", comp)
+            if m and sev == "medium":
+                groups.setdefault(("exported-" + m.group(1).lower().replace(" ", "-"), sev), []).append(
+                    re.search(r"\(([^)]*)\)", title).group(1) if "(" in title else title)
                 continue
-            seen.add(key_t)
             findings.append(Finding(
-                NAME, item.get("section", bucket)[:40] or bucket, SEV[bucket],
+                NAME, item.get("section", bucket)[:40] or bucket, sev,
                 "%s (%s)" % (title[:110], name), name, 0, category=CATEGORY, app=app,
                 detail=str(item.get("description", "")).strip()[:500]))
+    for (rule, sev), comps in groups.items():
+        kind = rule.replace("exported-", "").replace("-", " ")
+        findings.append(Finding(
+            NAME, rule, sev, "%d exported %s component(s) with no permission (%s)" % (len(comps), kind, name),
+            name, 0, category=CATEGORY, app=app,
+            detail=("Exported and unprotected: " + ", ".join(comps[:6])
+                    + (" …and %d more." % (len(comps) - 6) if len(comps) > 6 else "")
+                    + " Launcher activity-aliases are exported by design (icon/theme switching); confirm the "
+                      "rest are meant to be reachable by other apps, else set exported=false or a permission.")))
     score = appsec.get("security_score")
     trackers = appsec.get("trackers")
     findings.append(Finding(NAME, "mobsf-score", "info",
