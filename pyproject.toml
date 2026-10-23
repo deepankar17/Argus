@@ -1,0 +1,8 @@
+[project]
+name = "sentiniq"
+version = "1.0.0"
+description = "SentinIQ — defensive security test suite for PhonIQ, CrewChat and MinutIQ"
+requires-python = ">=3.9"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

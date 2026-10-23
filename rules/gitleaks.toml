@@ -1,0 +1,25 @@
+# gitleaks: the default rules, minus build output and vendored code.
+title = "SentinIQ"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "build output, dependencies, vendored tooling and caches"
+paths = [
+  '''(^|/)(build|node_modules|\.gradle|\.dart_tool|dist|\.git|\.venv|venv|__pycache__|\.idea|\.cxx|\.kotlin|Pods)/''',
+  '''(^|/)(\.npu-work|\.claude|android-ndk[^/]*|qairt|litert[^/]*)/''',
+  '''(^|/)package-lock\.json$''',
+  '''(^|/)pubspec\.lock$''',
+]
+
+[[allowlists]]
+description = "obvious test / example placeholders, not real secrets"
+regexTarget = "match"
+regexes = [
+  '''(?i)(test|example|sample|dummy|fake|placeholder|changeme|your[-_]?(api)?[-_]?key|xxx+|0123456789abcdef|deadbeef|redacted)''',
+]
+paths = [
+  '''(^|/)(tests?|e2e|fixtures?|__tests__|testdata|mocks?)/''',
+  '''(\.|_|-)(test|spec)\.(ts|js|py|kt|dart|java)$''',
+]

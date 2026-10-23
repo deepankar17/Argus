@@ -1,0 +1,20 @@
+{
+  "_comment": "The apps this suite tests. path may be absolute or ~ or relative to the suite repo's parent. kinds pick which scanners run. scanners (optional) restricts to a named subset.",
+  "apps": {
+    "phoniq": {
+      "path": "~/AndroidStudioProjects/phoniq",
+      "repo": "deepankar17/PhonIQ",
+      "kinds": ["android", "firebase", "firebase-functions", "web"]
+    },
+    "crewchat": {
+      "path": "~/AndroidStudioProjects/crewchat",
+      "repo": "deepankar17/crewchat-dev",
+      "kinds": ["python", "mcp", "web", "firebase"]
+    },
+    "minutiq": {
+      "path": "~/MinutIQ",
+      "repo": "deepankar17/MinutIQ",
+      "kinds": ["flutter", "android", "firebase"]
+    }
+  }
+}

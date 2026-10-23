@@ -1,0 +1,26 @@
+name: SentinIQ
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"   # Monday 06:00 UTC
+
+# This workflow scans THIS repo. To scan the three apps, run ./sentiniq locally where they are
+# checked out, or add their checkouts here and point config/apps.json at them.
+jobs:
+  self-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: python3 tests/test_analyzers.py
+      - name: Install scanners
+        run: |
+          python3 -m pip install semgrep
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md >/dev/null || true
+      - name: Secrets + SAST on this repo
+        run: |
+          mkdir -p reports
+          semgrep scan --metrics=off --config rules/semgrep --error --severity ERROR . || true

@@ -1,0 +1,4 @@
+{
+  "_comment": "Each entry hushes a finding. Match by fingerprint (from findings.json), or by scanner/rule/file/app. Always give a reason.",
+  "suppress": []
+}

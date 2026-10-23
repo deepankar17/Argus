@@ -1,0 +1,82 @@
+rules:
+  - id: python-server-binds-all-interfaces
+    languages: [python]
+    severity: ERROR
+    message: >
+      Server binds to 0.0.0.0 (all network interfaces). A local server, including an MCP server,
+      should bind 127.0.0.1 and be reached from other machines over a private network (e.g. a VPN),
+      not exposed on every interface.
+    metadata:
+      category: "LLM / MCP"
+      appsec_category: "LLM / MCP"
+      cwe: ["CWE-1327: Binding to an Unrestricted IP Address"]
+    patterns:
+      - pattern-either:
+          - pattern: $SRV = ($HOST, ...)
+          - pattern: ($HOST, $PORT)
+      - metavariable-regex:
+          metavariable: $HOST
+          regex: ^["'](0\.0\.0\.0|::)["']$
+
+  - id: python-subprocess-shell-true
+    languages: [python]
+    severity: ERROR
+    message: >
+      subprocess called with shell=True. If any part of the command comes from a tool argument, a
+      chat message, or anything a model produced, this is command injection. Pass a list of args and
+      shell=False.
+    metadata:
+      category: "LLM / MCP"
+      appsec_category: "Code (SAST)"
+      cwe: ["CWE-78: OS Command Injection"]
+    patterns:
+      - pattern-either:
+          - pattern: subprocess.run(..., shell=True, ...)
+          - pattern: subprocess.Popen(..., shell=True, ...)
+          - pattern: subprocess.call(..., shell=True, ...)
+          - pattern: subprocess.check_output(..., shell=True, ...)
+          - pattern: os.system(...)
+
+  - id: mcp-tool-description-injection-text
+    languages: [python, typescript, javascript, json]
+    severity: WARNING
+    message: >
+      An MCP tool description (or a string that looks like one) contains instruction-like text aimed
+      at the model, e.g. "ignore previous instructions" or "do not tell the user". A hostile tool
+      description is how a malicious MCP server attacks a client. Make sure this text is yours and is
+      meant to be there.
+    metadata:
+      category: "LLM / MCP"
+      appsec_category: "LLM / MCP"
+      cwe: ["CWE-77: Command/Prompt Injection"]
+    patterns:
+      - pattern-regex: (?i)(ignore (all |any )?(previous|prior|above) (instructions|prompts)|do not (tell|inform|reveal) the (user|human)|before (using|calling) (any|other) tools?,? (you must|always))
+
+  - id: python-yaml-unsafe-load
+    languages: [python]
+    severity: WARNING
+    message: "yaml.load without SafeLoader can execute arbitrary Python. Use yaml.safe_load."
+    metadata:
+      category: "Code (SAST)"
+      appsec_category: "Code (SAST)"
+      cwe: ["CWE-502: Deserialization of Untrusted Data"]
+    patterns:
+      - pattern: yaml.load($X)
+
+  - id: python-weak-token-compare
+    languages: [python]
+    severity: WARNING
+    message: >
+      A token or secret compared with == is open to a timing attack. Use hmac.compare_digest or
+      secrets.compare_digest.
+    metadata:
+      category: "LLM / MCP"
+      appsec_category: "Code (SAST)"
+      cwe: ["CWE-208: Timing Discrepancy"]
+    patterns:
+      - pattern-either:
+          - pattern: $TOK == $OTHER
+          - pattern: $TOK != $OTHER
+      - metavariable-regex:
+          metavariable: $TOK
+          regex: (?i).*(token|secret|password|api_?key|bearer).*
