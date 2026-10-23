@@ -48,6 +48,22 @@ Reports land in `reports/`:
 - `findings.json` — every finding with a stable `fingerprint`
 - `findings.sarif` — for GitHub code scanning / editors
 
+## Dynamic testing (DAST)
+
+`./argus` is static. To test **running** services — a deployed site, an HTTP function, the MCP
+server, or Firebase rules in the emulator — use `./argus-dast`. It drives nuclei, OWASP ZAP, sslyze
+and the Firebase emulator, and is **gated**: a target runs only when marked `authorized` in
+`config/dast.json`, and intrusive/active scans are refused against a `prod` target unless it opts in
+and the run passes `--allow-prod-active`.
+
+```bash
+./argus-dast                 # passive checks against authorized targets
+./argus-dast --active        # add intrusive checks (local/staging targets only)
+```
+
+See [docs/dast.md](docs/dast.md) for the target config and the safety model. Copy
+`config/dast.example.json` to `config/dast.json` (git-ignored) and fill in your targets.
+
 ## Quieting a false positive
 
 Add an entry to [`config/suppressions.json`](config/suppressions.json) — by `fingerprint` (copied

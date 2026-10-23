@@ -151,6 +151,43 @@ def test_catalog_parser():
     assert ("com.google.code.gson", "gson", "2.8.0") in libs
 
 
+# ---- DAST authorization gate ----
+from suite.dast.core import Target, authorize, NotAuthorized  # noqa: E402
+
+
+def test_gate_blocks_unauthorized():
+    t = Target(name="x", kind="web", url="https://x", env="staging", authorized=False)
+    try:
+        authorize(t, intrusive=False)
+        assert False, "should have refused an unauthorized target"
+    except NotAuthorized:
+        pass
+
+
+def test_gate_allows_passive_authorized():
+    t = Target(name="x", kind="web", url="https://x", env="prod", authorized=True)
+    assert authorize(t, intrusive=False) is True  # passive against prod is fine
+
+
+def test_gate_blocks_active_prod():
+    t = Target(name="x", kind="web", url="https://x", env="prod", authorized=True, allow_active=False)
+    try:
+        authorize(t, intrusive=True)
+        assert False, "active against prod must be refused by default"
+    except NotAuthorized:
+        pass
+
+
+def test_gate_allows_active_staging():
+    t = Target(name="x", kind="web", url="https://x", env="staging", authorized=True)
+    assert authorize(t, intrusive=True) is True
+
+
+def test_gate_allows_active_prod_with_optin():
+    t = Target(name="x", kind="web", url="https://x", env="prod", authorized=True, allow_active=True)
+    assert authorize(t, intrusive=True, allow_prod_active=True) is True
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     failed = 0

@@ -5,3 +5,6 @@ __pycache__/
 venv/
 .DS_Store
 .semgrep/
+
+# Local DAST target config (may hold real hostnames/tokens); commit only the example
+config/dast.json

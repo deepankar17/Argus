@@ -1,0 +1,47 @@
+{
+  "_comment": "Dynamic (DAST) targets. A target runs only when authorized:true. Intrusive 'active' checks are refused against env:prod unless allow_active:true AND the run uses --allow-prod-active. Put real tokens in an env var, not here.",
+  "targets": [
+    {
+      "name": "phoniq-site",
+      "app": "phoniq",
+      "kind": "web",
+      "url": "https://staging.example.com",
+      "env": "staging",
+      "authorized": false,
+      "allow_active": false
+    },
+    {
+      "name": "phoniq-weberror-fn",
+      "app": "phoniq",
+      "kind": "http-api",
+      "url": "https://asia-south1-PROJECT.cloudfunctions.net/webError",
+      "env": "staging",
+      "authorized": false
+    },
+    {
+      "name": "phoniq-site-tls",
+      "app": "phoniq",
+      "kind": "tls",
+      "url": "https://staging.example.com",
+      "env": "prod",
+      "authorized": false
+    },
+    {
+      "name": "crewchat-mcp-local",
+      "app": "crewchat",
+      "kind": "mcp",
+      "url": "http://127.0.0.1:8765/mcp",
+      "env": "local",
+      "authorized": false,
+      "token": "${CREWCHAT_TOKEN}"
+    },
+    {
+      "name": "phoniq-rules",
+      "app": "phoniq",
+      "kind": "firebase-emulator",
+      "env": "local",
+      "authorized": false,
+      "options": { "path": "~/AndroidStudioProjects/phoniq" }
+    }
+  ]
+}
