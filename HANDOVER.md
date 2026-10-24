@@ -7,6 +7,7 @@ fixes from the first full run. Written so the work can continue in Cursor (or an
 - **Last run:** 2026-10-24. Static + dynamic (DAST) complete on all three apps.
 - Companion docs: [`README.md`](README.md), [`docs/scanners.md`](docs/scanners.md) (static),
   [`docs/dast.md`](docs/dast.md) (dynamic).
+- **Open task list / checklist:** [`TASKS.md`](TASKS.md).
 
 ---
 
