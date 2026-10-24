@@ -62,7 +62,12 @@ def _zap(target: Target, intrusive: bool):
     if not zap and not docker:
         return [], "ZAP not available (install OWASP ZAP, or start Docker for the zaproxy image)"
     findings = []
-    with tempfile.TemporaryDirectory() as tmp:
+    # The container's /zap/wrk must be a bind-mountable host dir. Docker Desktop and Colima only
+    # share paths under $HOME by default, so put the work dir there, not in the system tempdir.
+    work_base = Path.home() / ".argus" / "zapwork"
+    work_base.mkdir(parents=True, exist_ok=True)
+    tmp = tempfile.mkdtemp(dir=str(work_base))
+    try:
         report = Path(tmp) / "zap.json"
         script = "zap-full-scan.py" if intrusive else "zap-baseline.py"
         if docker:
@@ -70,7 +75,7 @@ def _zap(target: Target, intrusive: bool):
                    "ghcr.io/zaproxy/zaproxy:stable", script, "-t", target.url, "-J", "zap.json", "-I"]
         else:
             cmd = [shutil.which(script) or script, "-t", target.url, "-J", str(report), "-I"]
-        run_tool(cmd, timeout=3600, ok_codes=range(0, 256))
+        run_tool(cmd, timeout=5400, ok_codes=range(0, 256))
         data = {}
         if report.exists():
             try:
@@ -87,6 +92,8 @@ def _zap(target: Target, intrusive: bool):
                     category=CATEGORY, detail=(a.get("desc", "") or "").strip()[:600],
                     fix=(a.get("solution", "") or "").strip()[:400], app=target.app,
                     references=[r for r in (a.get("reference", "") or "").split("\n") if r][:2]))
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
     return findings, ""
 
 
