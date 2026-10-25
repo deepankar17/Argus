@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 6 * * 1"   # Monday 06:00 UTC
 
+# A newer run replaces one that has not finished. The Monday job is already Linux only.
+concurrency:
+  group: scan-${{ github.ref }}
+  cancel-in-progress: true
+
 # This workflow scans THIS repo. To scan the three apps, run ./argus locally where they are
 # checked out, or add their checkouts here and point config/apps.json at them.
 jobs:
