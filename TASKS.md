@@ -14,7 +14,10 @@ _Last reconciled 2026-10-28 against the actual repo state. All remaining open it
 - [ ] **Unblock GitHub Actions billing** so CI runs on the security PRs. — _Deepankar · org/billing_
   - GitHub → Settings → Billing and plans → add/confirm a payment method (or raise the Actions spending limit). Then re-run the checks on any open PR.
 - [ ] **crewchat.dev TLS**: disable TLS 1.0/1.1 + weak ciphers at the Firebase Hosting / Fastly edge (platform setting, not in the repo). — _Deepankar · crewchat-dev hosting_
-- [ ] **MinutIQ Firebase console**: restrict the API keys (per `docs/SETUP_NEEDED.md` → Google Cloud console → APIs & Services → Credentials → restrict to the Android package + release SHA-1 and the Firebase Installations/Crashlytics APIs); enforce App Check once Play Integrity / App Attest are registered. — _Deepankar · MinutIQ / console_
+- [~] **MinutIQ Firebase console** — _partly done 2026-10-29_:
+  - [x] **iOS key** restricted to bundle `com.minutiq.minutiq` (+ the existing 25-API restriction).
+  - [ ] **Android key** needs package `com.minutiq.app` + **release SHA-1** — blocked on the keystore (do after task #1); can be finished in Chrome then.
+  - [ ] **App Check** — left off: the app doesn't call the App Check SDK yet, so enforcing it now would lock the app out. Do after the SDK is integrated. — _Deepankar · MinutIQ / console_
 
 ## Audits — complete
 - [x] **Deep PhonIQ audit** — [`docs/phoniq-deep-audit.md`](docs/phoniq-deep-audit.md) (2026-10-24).
