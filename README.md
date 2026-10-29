@@ -1,6 +1,7 @@
 # Argus
 
 [![Sponsor](https://img.shields.io/github/sponsors/deepankar17?label=Sponsor&logo=github)](https://github.com/sponsors/deepankar17)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-tip-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/deepankarsarkar)
 
 A defensive, end-to-end security test suite for my own apps — **PhonIQ**, **CrewChat** and
 **MinutIQ**. One command scans every app, applies the right checks for each stack, and writes a
