@@ -16,7 +16,7 @@ _Last reconciled 2026-10-28 against the actual repo state. All remaining open it
 ## Owner-only — still only Deepankar can do these
 - [ ] **Unblock GitHub Actions billing** so CI runs on the security PRs. — _Deepankar · org/billing_
   - GitHub → Settings → Billing and plans → add/confirm a payment method (or raise the Actions spending limit). Then re-run the checks on any open PR.
-- [ ] **crewchat.dev TLS**: disable TLS 1.0/1.1 + weak ciphers at the Firebase Hosting / Fastly edge (platform setting, not in the repo). — _Deepankar · crewchat-dev hosting_
+- [ ] **crewchat.dev TLS**: crewchat.dev is served through **Cloudflare** (confirmed: NS `*.ns.cloudflare.com`, `server: cloudflare`), so the TLS 1.0/1.1 + weak-cipher finding is a **Cloudflare setting**, one click: Cloudflare dashboard → the `crewchat.dev` zone → **SSL/TLS → Edge Certificates → Minimum TLS Version → set to TLS 1.2**. (I can do this in Chrome once you're signed into Cloudflare there — I won't enter the login myself.) — _Deepankar / Claude once signed in · Cloudflare_
 - [ ] **MinutIQ App Check** — left off deliberately: the app doesn't call the App Check SDK yet, so enforcing it now would lock the app out of Firebase. Do after the SDK is integrated. — _Deepankar · MinutIQ / console_
 
 ## Audits — complete
