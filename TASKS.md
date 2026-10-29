@@ -6,18 +6,18 @@ Owners: **Deepankar** (keys, console, billing, merges) · **app dev** (code fixe
 _Last reconciled 2026-10-28 against the actual repo state. All remaining open items are owner-only
 (keys, billing, console) or a planned MinutIQ feature; the code audits are complete._
 
-## Owner-only — only Deepankar can do these
-- [ ] **Create the MinutIQ release keystore + `android/key.properties`**, then build a signed release to confirm PR #24. — _Deepankar · MinutIQ_
-  1. `keytool -genkey -v -keystore ~/minutiq-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias minutiq` (set a store + key password; keep the `.jks` out of git).
-  2. Create `~/MinutIQ/android/key.properties` (git-ignored) with `storePassword=…`, `keyPassword=…`, `keyAlias=minutiq`, `storeFile=/absolute/path/to/minutiq-release.jks` — template at `android/key.properties.example`.
-  3. `cd ~/MinutIQ && flutter build apk --release` and confirm it's signed with the release key (`apksigner verify --print-certs build/app/outputs/apk/release/app-release.apk`), then mark PR #24 ready.
+## Done 2026-10-29
+- [x] **MinutIQ release keystore + `android/key.properties`** — created (`~/minutiq-release.jks`, alias `minutiq`, RSA-2048, 10000d; key.properties is 0600 and git-ignored). **A release build now signs with the release key** (verified: APK signer DN `CN=MinutIQ`, SHA-1 `91:8D:D3:…`), so the debug-cert finding is fixed and PR #24 is confirmed working.
+  - ⚠️ **BACK UP** `~/minutiq-release.jks` **and** `~/MinutIQ/android/key.properties` (which holds the passwords) somewhere safe and off this machine. If you publish to Play with this key and later lose it, you can't update the app. (Or switch to Play App Signing, where Google holds the key and this becomes just the upload key.)
+- [x] **MinutIQ Firebase console — API keys restricted** (both app-restricted + the existing 25-API restriction):
+  - **iOS key** → iOS apps, bundle `com.minutiq.minutiq`.
+  - **Android key** → Android apps, package `com.minutiq.app` with **both** the release SHA-1 (`91:8D:D3:…`) and the debug SHA-1 (`5E:68:99:…`), so production and dev builds both work.
+
+## Owner-only — still only Deepankar can do these
 - [ ] **Unblock GitHub Actions billing** so CI runs on the security PRs. — _Deepankar · org/billing_
   - GitHub → Settings → Billing and plans → add/confirm a payment method (or raise the Actions spending limit). Then re-run the checks on any open PR.
 - [ ] **crewchat.dev TLS**: disable TLS 1.0/1.1 + weak ciphers at the Firebase Hosting / Fastly edge (platform setting, not in the repo). — _Deepankar · crewchat-dev hosting_
-- [~] **MinutIQ Firebase console** — _partly done 2026-10-29_:
-  - [x] **iOS key** restricted to bundle `com.minutiq.minutiq` (+ the existing 25-API restriction).
-  - [ ] **Android key** needs package `com.minutiq.app` + **release SHA-1** — blocked on the keystore (do after task #1); can be finished in Chrome then.
-  - [ ] **App Check** — left off: the app doesn't call the App Check SDK yet, so enforcing it now would lock the app out. Do after the SDK is integrated. — _Deepankar · MinutIQ / console_
+- [ ] **MinutIQ App Check** — left off deliberately: the app doesn't call the App Check SDK yet, so enforcing it now would lock the app out of Firebase. Do after the SDK is integrated. — _Deepankar · MinutIQ / console_
 
 ## Audits — complete
 - [x] **Deep PhonIQ audit** — [`docs/phoniq-deep-audit.md`](docs/phoniq-deep-audit.md) (2026-10-24).
