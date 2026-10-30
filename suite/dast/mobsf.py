@@ -3,7 +3,7 @@
 MobSF does a thorough static analysis of a built app (APK/AAB): manifest, permissions, exported
 components, certificate and signing, native libs, secrets/trackers, insecure API usage, network
 security config, and a CVSS-scored summary. It runs entirely locally (the container never uploads
-the app). Argus starts the container, drives MobSF's REST API (via curl, which handles large
+the app). Flawhound starts the container, drives MobSF's REST API (via curl, which handles large
 multipart uploads reliably) to upload and scan the artifact, then maps MobSF's own security summary
 (`appsec`) into the common Finding shape.
 
@@ -26,7 +26,7 @@ from .shared import run_tool, tool_available
 
 NAME = "mobsf"
 CATEGORY = "Android (MobSF)"
-CONTAINER = "argus-mobsf"
+CONTAINER = "flawhound-mobsf"
 IMAGE = "opensecurity/mobile-security-framework-mobsf:latest"
 BASE = "http://127.0.0.1:8000"
 ANSI = re.compile(r"\x1b\[[0-9;]*m")

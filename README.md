@@ -1,4 +1,4 @@
-# Argus
+# Flawhound
 
 [![Sponsor](https://img.shields.io/github/sponsors/deepankar17?label=Sponsor&logo=github)](https://github.com/sponsors/deepankar17)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-tip-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/deepankarsarkar)
@@ -40,10 +40,10 @@ is missing are reported as **skipped**, not failed, so a partial toolbox still g
 ## Run
 
 ```bash
-./argus                 # every app, every applicable scanner
-./argus --app phoniq -v # one app, verbose
-./argus --scanner sast  # one scanner across all apps
-./argus --fail-on critical   # exit non-zero only on critical (default: high) — for CI gates
+./flawhound                 # every app, every applicable scanner
+./flawhound --app phoniq -v # one app, verbose
+./flawhound --scanner sast  # one scanner across all apps
+./flawhound --fail-on critical   # exit non-zero only on critical (default: high) — for CI gates
 ```
 
 Reports land in `reports/`:
@@ -53,15 +53,15 @@ Reports land in `reports/`:
 
 ## Dynamic testing (DAST)
 
-`./argus` is static. To test **running** services — a deployed site, an HTTP function, the MCP
-server, or Firebase rules in the emulator — use `./argus-dast`. It drives nuclei, OWASP ZAP, sslyze
+`./flawhound` is static. To test **running** services — a deployed site, an HTTP function, the MCP
+server, or Firebase rules in the emulator — use `./flawhound-dast`. It drives nuclei, OWASP ZAP, sslyze
 and the Firebase emulator, and is **gated**: a target runs only when marked `authorized` in
 `config/dast.json`, and intrusive/active scans are refused against a `prod` target unless it opts in
 and the run passes `--allow-prod-active`.
 
 ```bash
-./argus-dast                 # passive checks against authorized targets
-./argus-dast --active        # add intrusive checks (local/staging targets only)
+./flawhound-dast                 # passive checks against authorized targets
+./flawhound-dast --active        # add intrusive checks (local/staging targets only)
 ```
 
 See [docs/dast.md](docs/dast.md) for the target config and the safety model. Copy

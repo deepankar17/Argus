@@ -1,6 +1,6 @@
 # MinutIQ & CrewChat deep audit (step 3)
 
-_2026-10-28. Read against `~/MinutIQ` and `~/AndroidStudioProjects/crewchat` after the Argus static
+_2026-10-28. Read against `~/MinutIQ` and `~/AndroidStudioProjects/crewchat` after the Flawhound static
 + dynamic sweeps (MobSF, nuclei/ZAP, MCP posture). This is the judgment pass: what is real in each
 app today, and what the scanner findings got wrong._
 

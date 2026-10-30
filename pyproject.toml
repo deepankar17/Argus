@@ -1,7 +1,7 @@
 [project]
-name = "argus"
+name = "flawhound"
 version = "1.0.0"
-description = "Argus — defensive security test suite for PhonIQ, CrewChat and MinutIQ"
+description = "Flawhound — defensive security test suite for PhonIQ, CrewChat and MinutIQ"
 requires-python = ">=3.9"
 
 [tool.pytest.ini_options]

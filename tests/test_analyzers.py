@@ -188,6 +188,13 @@ def test_gate_allows_active_prod_with_optin():
     assert authorize(t, intrusive=True, allow_prod_active=True) is True
 
 
+def test_entry_points_use_suite_name():
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    for name in ("flawhound", "flawhound-dast"):
+        path = os.path.join(root, name)
+        assert os.access(path, os.X_OK), "missing entry point ./%s" % name
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     failed = 0

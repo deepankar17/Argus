@@ -1,4 +1,4 @@
-"""Runner for the dynamic (DAST) scanners. Separate from the static `./argus` because these touch
+"""Runner for the dynamic (DAST) scanners. Separate from the static `./flawhound` because these touch
 running services. It reads config/dast.json, runs the scanner each target asks for, enforces the
 authorization gate, and writes reports alongside the static ones (dast-report.md / dast-findings.*).
 
@@ -42,7 +42,7 @@ def load_targets(path):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Run Argus dynamic (DAST) scans against running services.")
+    ap = argparse.ArgumentParser(description="Run Flawhound dynamic (DAST) scans against running services.")
     ap.add_argument("--config", default=str(ROOT / "config" / "dast.json"))
     ap.add_argument("--target", action="append", help="only this target name (repeatable)")
     ap.add_argument("--active", action="store_true", help="run intrusive/active checks (fuzzing, abuse, rate probing)")

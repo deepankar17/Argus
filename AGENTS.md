@@ -1,13 +1,13 @@
-# Agent guide — Argus
+# Agent guide — Flawhound
 
-Argus is a security suite for the apps **PhonIQ**, **CrewChat**, **MinutIQ**. Read
+Flawhound is a security suite for the apps **PhonIQ**, **CrewChat**, **MinutIQ**. Read
 [`HANDOVER.md`](HANDOVER.md) first — it has the full architecture, findings, open PRs, and next
 steps. This file is the short orientation for an AI agent (Cursor, etc.).
 
 ## Run
-- Static: `./argus` (all apps) · `./argus --app phoniq -v` · `./argus --scanner sast`
-- Dynamic: `colima start` then `./argus-dast` (passive) or `./argus-dast --active --allow-prod-active`
-- Tests: `python3 tests/test_analyzers.py` — **keep this at 20/20 when editing analyzers**
+- Static: `./flawhound` (all apps) · `./flawhound --app phoniq -v` · `./flawhound --scanner sast`
+- Dynamic: `colima start` then `./flawhound-dast` (passive) or `./flawhound-dast --active --allow-prod-active`
+- Tests: `python3 tests/test_analyzers.py` — **keep this at 21/21 when editing analyzers**
 - Reports land in `reports/` (git-ignored).
 
 ## Structure
@@ -19,6 +19,6 @@ steps. This file is the short orientation for an AI agent (Cursor, etc.).
 
 ## Rules for changes
 - **Do not weaken `suite/dast/core.py:authorize()`** — it stops active scans hitting production by accident.
-- Keep the false-positive bar high: scan only git-tracked files; Firebase client config keys are info, not secrets; allowlist test fixtures. A regression test asserts Argus stays silent on PhonIQ's real Firestore rules.
+- Keep the false-positive bar high: scan only git-tracked files; Firebase client config keys are info, not secrets; allowlist test fixtures. A regression test asserts Flawhound stays silent on PhonIQ's real Firestore rules.
 - Static and local only: no telemetry; SCA sends only package name+version to OSV.dev; Semgrep metrics off; MobSF/ZAP run in local Docker (Colima) and never upload the apps.
-- This repo (Argus) is the tooling; fixes to the scanned apps belong in **their** repos (`deepankar17/PhonIQ`, `deepankar17/MinutIQ`, `deepankar17/crewchat-dev` — dev on branch `dev`).
+- This repo (Flawhound) is the tooling; fixes to the scanned apps belong in **their** repos (`deepankar17/PhonIQ`, `deepankar17/MinutIQ`, `deepankar17/crewchat-dev` — dev on branch `dev`).
