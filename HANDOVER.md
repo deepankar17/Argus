@@ -1,9 +1,11 @@
-# Argus — handover
+# Flawhound — handover
 
 Security suite for the owner's apps — **PhonIQ**, **CrewChat**, **MinutIQ** — plus the findings and
 fixes from the first full run. Written so the work can continue in Cursor (or any editor/agent).
 
-- **Repo:** `deepankar17/Argus` (private) · **local:** `/Users/deepankar/argus`
+- **Repo:** `deepankar17/Flawhound` · **local:** `/Users/deepankar/flawhound`
+- **Name:** renamed 2026-10-30 from Argus (too many existing security tools share that name),
+  which was itself renamed from SentinIQ. Old `deepankar17/Argus` URLs redirect after the GitHub rename.
 - **Last run:** 2026-10-24. Static + dynamic (DAST) complete on all three apps.
 - Companion docs: [`README.md`](README.md), [`docs/scanners.md`](docs/scanners.md) (static),
   [`docs/dast.md`](docs/dast.md) (dynamic).
@@ -11,18 +13,18 @@ fixes from the first full run. Written so the work can continue in Cursor (or an
 
 ---
 
-## 1. What Argus is
+## 1. What Flawhound is
 
-One command scans each app and writes a ranked report. **Static** (`./argus`) reads code/config and
-is safe to run anytime. **Dynamic** (`./argus-dast`) tests *running* services and is gated so it
+One command scans each app and writes a ranked report. **Static** (`./flawhound`) reads code/config and
+is safe to run anytime. **Dynamic** (`./flawhound-dast`) tests *running* services and is gated so it
 can't attack production by accident. Each app declares its stack in `config/apps.json`; only the
 relevant scanners run.
 
 ### Layout
 ```
-argus/
-  argus              # static entry point  -> suite/runner.py
-  argus-dast         # dynamic entry point -> suite/dast_runner.py
+flawhound/
+  flawhound              # static entry point  -> suite/runner.py
+  flawhound-dast         # dynamic entry point -> suite/dast_runner.py
   suite/
     core.py          # Finding model, severity, git helpers
     runner.py        # static orchestrator
@@ -66,11 +68,11 @@ its scanner **skip**, not fail.
 
 ### Static
 ```bash
-cd ~/argus
-./argus                 # all apps, all applicable scanners
-./argus --app phoniq -v
-./argus --scanner sast
-./argus --fail-on critical   # CI gate (default: high)
+cd ~/flawhound
+./flawhound                 # all apps, all applicable scanners
+./flawhound --app phoniq -v
+./flawhound --scanner sast
+./flawhound --fail-on critical   # CI gate (default: high)
 ```
 
 ### Dynamic (DAST)
@@ -79,9 +81,9 @@ Nothing runs unless a target has `authorized: true`, and **active** scans are re
 `prod` target unless it sets `allow_active: true` **and** the run passes `--allow-prod-active`.
 ```bash
 colima start                         # bring Docker up first (MobSF + ZAP need it)
-./argus-dast                         # passive checks, authorized targets
-./argus-dast --target phoniq-rules   # one target (Firestore rules in the emulator)
-./argus-dast --active --allow-prod-active   # full active incl. prod (owner-authorized)
+./flawhound-dast                         # passive checks, authorized targets
+./flawhound-dast --target phoniq-rules   # one target (Firestore rules in the emulator)
+./flawhound-dast --active --allow-prod-active   # full active incl. prod (owner-authorized)
 ```
 DAST reports: `reports/dast-report.md`, `dast-findings.json`, `dast-findings.sarif`.
 
@@ -106,7 +108,7 @@ No staging environment exists — every live target is production.
 
 ## 4. Findings status
 
-### Static (`./argus`): 161 findings — 1 critical, 27 high, 84 medium, rest low/info
+### Static (`./flawhound`): 161 findings — 1 critical, 27 high, 84 medium, rest low/info
 - **PhonIQ (83):** most highs are known CVEs in `firestore-tests/` **dev deps** (not shipped) →
   fixed, see PR below. Real in-app: exported Android components w/o permission; Firestore
   `users/{uid}` readable by any signed-in user (confirm intended — public keys for the courier);
@@ -116,9 +118,9 @@ No staging environment exists — every live target is production.
   Worth a dev's eyes: `crewchat.py` file-permissions (SECURITY.md already claims 0600, likely FP)
   and one formatted SQL in `crewchat_map.py`.
 - **MinutIQ (9):** cleanest. "Secrets" flagged are the Firebase **client** config key — an
-  identifier meant to ship, not a leak (Argus labels it info).
+  identifier meant to ship, not a leak (Flawhound labels it info).
 
-### Dynamic (`./argus-dast`)
+### Dynamic (`./flawhound-dast`)
 - **Web (nuclei + OWASP ZAP active):** no injection/XSS/auth holes on either site (static Hosting).
   Real items are CDN/platform-layer: crewchat.dev accepts **TLS 1.0/1.1 + weak ciphers**; both sites
   reflect **Fastly debug headers**; **CSP `style-src 'unsafe-inline'`** and **missing SRI** on the
@@ -173,8 +175,8 @@ These were deliberately **not** auto-fixed because they need app knowledge or co
 3. Work the "left" list above per app — each app's repo is the right place.
 4. **Deep PhonIQ audit not started:** the separate "Help me work out a plan for a project" thread was
    about to begin *step 2 — the deep PhonIQ audit* — and it has **not** started yet. Pick that up
-   there; Argus is the tooling for it.
-5. Re-run anytime: `./argus` for static, `colima start && ./argus-dast --active --allow-prod-active`
+   there; Flawhound is the tooling for it.
+5. Re-run anytime: `./flawhound` for static, `colima start && ./flawhound-dast --active --allow-prod-active`
    for the full dynamic sweep. Keep `tests/test_analyzers.py` green when editing analyzers.
 
 ---
@@ -182,7 +184,7 @@ These were deliberately **not** auto-fixed because they need app knowledge or co
 ## 8. Design principles (so changes keep the tool credible)
 - **Low false-positive bar.** Scan only git-tracked files; Firebase client keys are info, not
   secrets; test fixtures and localized zero-width joiners are allowlisted; a regression test asserts
-  Argus does **not** flag PhonIQ's real Firestore rules. Keep this bar when adding rules.
+  Flawhound does **not** flag PhonIQ's real Firestore rules. Keep this bar when adding rules.
 - **DAST is gated.** Never weaken `suite/dast/core.py:authorize()`. Active-against-prod needs two
   explicit opt-ins.
 - **Static + local only by default.** No telemetry; SCA sends only package name+version to OSV.dev;

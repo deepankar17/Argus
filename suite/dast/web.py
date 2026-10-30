@@ -6,7 +6,7 @@
 - OWASP ZAP (if available via `zap.sh` or Docker): baseline passive scan for a quick pass, or a
   full active scan (spider + attack) only for an authorized intrusive, non-prod target.
 
-Both are established, widely-used tools; Argus just drives them, maps their output into the common
+Both are established, widely-used tools; Flawhound just drives them, maps their output into the common
 Finding shape, and enforces the authorization gate first.
 """
 import json
@@ -64,7 +64,7 @@ def _zap(target: Target, intrusive: bool):
     findings = []
     # The container's /zap/wrk must be a bind-mountable host dir. Docker Desktop and Colima only
     # share paths under $HOME by default, so put the work dir there, not in the system tempdir.
-    work_base = Path.home() / ".argus" / "zapwork"
+    work_base = Path.home() / ".flawhound" / "zapwork"
     work_base.mkdir(parents=True, exist_ok=True)
     tmp = tempfile.mkdtemp(dir=str(work_base))
     try:

@@ -1,4 +1,4 @@
-# Argus — task list
+# Flawhound — task list
 
 Open tasks from the security work. Checkbox = done. See [`HANDOVER.md`](HANDOVER.md) for detail.
 Owners: **Deepankar** (keys, console, billing, merges) · **app dev** (code fixes in each app repo).
@@ -34,7 +34,7 @@ _Last reconciled 2026-10-28 against the actual repo state. All remaining open it
 - [ ] **MinutIQ DB encryption at rest (SQLCipher):** real but a planned week-3 feature, not a drive-by fix (needs `flutter_secure_storage` key handling + a migration test). — _app dev · MinutIQ_
 
 ## Done (tooling)
-- [x] Build Argus (static suite: 9 scanners) — `deepankar17/Argus`
+- [x] Build Flawhound (static suite: 9 scanners) — `deepankar17/Flawhound`
 - [x] Build the DAST module (web/nuclei+ZAP, TLS, HTTP-API, MCP, Firebase-emulator, MobSF)
 - [x] Full static + dynamic sweep of PhonIQ, CrewChat, MinutIQ
 - [x] Handover doc + agent guide + published task page

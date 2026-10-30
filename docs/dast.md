@@ -1,6 +1,6 @@
 # Dynamic testing (DAST)
 
-The static scanners (`./argus`) read code and configs. The dynamic scanners (`./argus-dast`) test
+The static scanners (`./flawhound`) read code and configs. The dynamic scanners (`./flawhound-dast`) test
 **running** services — a deployed site, an HTTP function, the MCP server, or the Firebase emulator.
 Because they touch live systems, they are deliberately separate and gated.
 
@@ -12,7 +12,7 @@ Nothing runs unless you ask for it. Every target lives in `config/dast.json` and
 - for **active / intrusive** checks (`--active`): the target's `env` is `local` or `staging`, **or**
   the target sets `allow_active: true` **and** the run uses `--allow-prod-active`.
 
-So a plain `./argus-dast` does passive checks against authorized targets; intrusive testing against
+So a plain `./flawhound-dast` does passive checks against authorized targets; intrusive testing against
 production takes two explicit opt-ins. A target that isn't authorized, or a prod target you try to
 actively scan without the flags, is **skipped with a reason**, never run.
 
@@ -36,10 +36,10 @@ process the firebase CLI starts and tears down.
 ## Running it
 
 ```bash
-./argus-dast                       # passive checks, every authorized target
-./argus-dast --target phoniq-rules # one target
-./argus-dast --active              # add intrusive checks (local/staging targets only)
-./argus-dast --active --allow-prod-active   # also active against prod targets that opted in — use with care
+./flawhound-dast                       # passive checks, every authorized target
+./flawhound-dast --target phoniq-rules # one target
+./flawhound-dast --active              # add intrusive checks (local/staging targets only)
+./flawhound-dast --active --allow-prod-active   # also active against prod targets that opted in — use with care
 ```
 
 Reports: `reports/dast-report.md`, `dast-findings.json`, `dast-findings.sarif`.

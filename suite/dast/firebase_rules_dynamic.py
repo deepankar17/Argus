@@ -75,7 +75,7 @@ def scan(target: Target, intrusive: bool = False, allow_prod_active: bool = Fals
     if not (test_dir / "node_modules").exists():
         run_tool(["npm", "ci"], cwd=str(test_dir), timeout=1200, ok_codes=range(0, 256))
     full = cmd if self_wraps else ["firebase", "emulators:exec", "--only", "firestore",
-                                   "--project", "argus-dast-test", " ".join(cmd)]
+                                   "--project", "flawhound-dast-test", " ".join(cmd)]
     out = run_tool(full, cwd=str(test_dir), timeout=1800, ok_codes=range(0, 256), env=_env_with_java())
     log = (out.stdout + out.stderr)
     if out.returncode == 0:

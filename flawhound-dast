@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Entry point for Argus dynamic (DAST) scans: `./argus-dast [--active] [--target NAME] -v`.
+"""Entry point for Flawhound dynamic (DAST) scans: `./flawhound-dast [--active] [--target NAME] -v`.
 Runs against running services declared in config/dast.json (authorized targets only)."""
 import os
 import sys
